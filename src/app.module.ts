@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import 'dotenv/config';
 import { QuestionModule } from './question/question.module';
-import { Artikels } from './artikel/entities/artikel.entity';
-import { Galeries } from './galery/entities/galery.entity';
+import { Artikel } from './artikel/entities/artikel.entity';
+import { Galery } from './galery/entities/galery.entity';
 import { ArtikelModule } from './artikel/artikel.module';
-import { GaleriesModule } from './galery/galery.module';
+import { GaleryModule } from './galery/galery.module';
 import { Infos } from './info/entities/info.entity';
 import { InfosModule } from './info/info.module';
 import { Kontak } from './kontak/entities/kontak.entity';
@@ -17,7 +17,7 @@ import { PesanModule } from './pesan/pesan.module';
 import { Program } from './program/entities/program.entity';
 import { ProgramsModule } from './program/program.module';
 import { Question } from './question/entities/question.entity';
-import { Registrasis } from './registrasi/entities/registrasi.entity';
+import { Registrasi } from './registrasi/entities/registrasi.entity';
 import { RegistrasiModule } from './registrasi/registrasi.module';
 
 @Module({
@@ -29,11 +29,11 @@ import { RegistrasiModule } from './registrasi/registrasi.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PW,
       database: process.env.DB_NAME,
-      entities: [ Artikels, Galeries, Infos, Kontak, Layanan, Pesan, Program, Question, Registrasis,], 
+      entities: [ Artikel, Galery, Infos, Kontak, Layanan, Pesan, Program, Question, Registrasi,], 
       synchronize: false, 
     }),
     ArtikelModule,
-    GaleriesModule,
+    GaleryModule,
     InfosModule,
     KontakModule,
     LayananModule,

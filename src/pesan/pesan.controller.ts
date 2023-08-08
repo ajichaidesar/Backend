@@ -1,6 +1,4 @@
-// pesan.controller.ts
-
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { PesanService } from './pesan.service';
 import { Pesan } from './entities/pesan.entity';
 import { CreatePesanDto, UpdatePesanDto } from './pesan.dto';

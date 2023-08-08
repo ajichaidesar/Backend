@@ -1,30 +1,19 @@
-import { Body, Controller, Get, Param, Post, NotFoundException } from '@nestjs/common';
-import { Registrasis } from './entities/registrasi.entity';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Registrasi } from './entities/registrasi.entity';
 import { RegistrasiService } from './registrasi.service';
 
 @Controller('registrasi')
 export class RegistrasiController {
   constructor(private readonly registrasiService: RegistrasiService) {}
 
+  @Get()
+  async getAllRegistrasis(): Promise<Registrasi[]> {
+    return this.registrasiService.getAllRegistrasi();
+  }
+
   @Post()
-  async create(@Body() data: Partial<Registrasis>): Promise<Registrasis> {
+  async createQuestion(@Body() data: Partial<Registrasi>): Promise<Registrasi> {
     return this.registrasiService.createRegistrasi(data);
   }
-
-  @Get()
-  async findAll(): Promise<Registrasis[]> {
-    return this.registrasiService.findAllRegistrasi();
-  }
-
-  @Get(':id')
-  async findById(@Param('id') id: number): Promise<Registrasis> {
-    try {
-      return this.registrasiService.findRegistrasiById(id);
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw new NotFoundException('Registrasi not found');
-      }
-      throw error;
-    }
-  }
 }
+

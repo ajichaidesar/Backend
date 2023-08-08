@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Registrasis } from './entities/registrasi.entity';
+import { Registrasi } from './entities/registrasi.entity';
 import { RegistrasiService } from './registrasi.service';
 import { RegistrasiController } from './registrasi.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Registrasis])],
+  imports: [TypeOrmModule.forFeature([Registrasi])],
   providers: [RegistrasiService],
   controllers: [RegistrasiController],
 })

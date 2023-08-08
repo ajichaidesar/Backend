@@ -1,23 +1,23 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { Artikels } from './entities/artikel.entity';
+import { Controller, Get } from '@nestjs/common';
 import { ArtikelService } from './artikel.service';
+import { Artikel } from './entities/artikel.entity';
 
-@Controller('artikel')
+@Controller('blog')
 export class ArtikelController {
   constructor(private readonly artikelService: ArtikelService) {}
 
   @Get()
-  getAllArtikel(): Promise<Artikels[]> {
-    return this.artikelService.getAllArtikel();
+  async getBlogArticles(): Promise<Artikel[]> {
+    return this.artikelService.findAll();
   }
+}
 
-  @Get(':id')
-  getArtikelById(@Param('id') id: number): Promise<Artikels> {
-    return this.artikelService.getArtikelById(id);
-  }
+@Controller('news')
+export class NewsPageController {
+  constructor(private readonly artikelService: ArtikelService) {}
 
-  @Post()
-  createArtikel(@Body() artikelData: Artikels): Promise<Artikels> {
-    return this.artikelService.createArtikel(artikelData);
+  @Get()
+  async getNewsArticles(): Promise<Artikel[]> {
+    return this.artikelService.findAll();
   }
 }
