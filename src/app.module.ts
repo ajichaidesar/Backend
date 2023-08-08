@@ -6,8 +6,8 @@ import { Artikel } from './artikel/entities/artikel.entity';
 import { Galery } from './galery/entities/galery.entity';
 import { ArtikelModule } from './artikel/artikel.module';
 import { GaleryModule } from './galery/galery.module';
-import { Infos } from './info/entities/info.entity';
-import { InfosModule } from './info/info.module';
+import { Info } from './info/entities/info.entity';
+import { InfoModule } from './info/info.module';
 import { Kontak } from './kontak/entities/kontak.entity';
 import { KontakModule } from './kontak/kontak.module';
 import { Layanan } from './layanan/entities/layanan.entity';
@@ -29,12 +29,12 @@ import { RegistrasiModule } from './registrasi/registrasi.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PW,
       database: process.env.DB_NAME,
-      entities: [ Artikel, Galery, Infos, Kontak, Layanan, Pesan, Program, Question, Registrasi,], 
+      entities: [ Artikel, Galery, Info, Kontak, Layanan, Pesan, Program, Question, Registrasi,], 
       synchronize: false, 
     }),
     ArtikelModule,
     GaleryModule,
-    InfosModule,
+    InfoModule,
     KontakModule,
     LayananModule,
     PesanModule,
