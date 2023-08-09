@@ -1,17 +1,13 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { GaleriesService } from './galery.service';
+import { Controller, Get } from '@nestjs/common';
+import { GaleryService } from './galery.service';
+import { Galery } from './entities/galery.entity';
 
-@Controller('galeries')
-export class GaleriesController {
-  constructor(private readonly galeriesService: GaleriesService) {}
+@Controller('galery') // Ganti 'galeries' menjadi 'galery'
+export class GaleryController {
+  constructor(private readonly galeryService: GaleryService) {}
 
   @Get()
-  async getAllGaleries() {
-    return this.galeriesService.getAllGaleries();
-  }
-
-  @Post()
-  async createGalery(@Body() data: { Image_galery: any, AltTeks: string }) {
-    return this.galeriesService.createGalery(data);
+  async findAll(): Promise<Galery[]> {
+    return this.galeryService.findAll();
   }
 }

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ name: 'galeries' }) // Mengatur nama tabel menjadi 'galeries'
-export class Galeries {
+export class Galery {
   @PrimaryGeneratedColumn()
   id: number;
 

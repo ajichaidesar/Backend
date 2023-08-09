@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Layanan } from './entities/layanan.entity';
@@ -10,8 +10,16 @@ export class LayananService {
     private readonly layananRepository: Repository<Layanan>,
   ) {}
 
-  async getAll(): Promise<Layanan[]> {
+  async getAllLayanans(): Promise<Layanan[]> {
     return this.layananRepository.find();
+  }
+
+  async getById(id: number): Promise<Layanan> {
+    const layanan = await this.layananRepository.findOne({ where: { id: id } });
+    if (!layanan) {
+      throw new NotFoundException('Layanan not found');
+    }
+    return layanan;
   }
 
   async create(layananData: Layanan): Promise<Layanan> {

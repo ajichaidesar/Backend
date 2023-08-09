@@ -1,17 +1,13 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { KontakService } from './kontak.service';
+import { Kontak } from './entities/kontak.entity';
 
-@Controller('kontaks')
+@Controller('kontak')
 export class KontakController {
   constructor(private readonly kontakService: KontakService) {}
 
   @Get()
-  getAllKontaks() {
-    return this.kontakService.getAllKontaks();
-  }
-
-  @Post()
-  createKontak(@Body() data: any) {
-    return this.kontakService.createKontak(data);
+  async findOne(): Promise<Kontak | undefined> {
+    return this.kontakService.findFirst();
   }
 }

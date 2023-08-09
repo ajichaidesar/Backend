@@ -1,19 +1,19 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class Pesans {
+@Entity({ name: 'pesans'})
+export class Pesan {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'Nama_lengkap', length: 100 })
-  namaLengkap: string;
+  @Column({ name: 'nama_lengkap', length: 100, nullable: true })
+  namaLengkap: string | null;
 
-  @Column({ unique: true, length: 100 })
-  email: string;
+  @Column({ unique: true, length: 255, nullable: true })
+  email: string | null;
 
-  @Column({ name: 'Telp', length: 15 })
-  telp: string;
+  @Column({ name: 'telp', length: 15, nullable: true })
+  telp: string | null;
 
-  @Column({ type: 'text' })
-  pesan: string;
+  @Column({ type: 'text', nullable: true })
+  pesan: string | null;
 }

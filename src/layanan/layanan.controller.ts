@@ -2,13 +2,13 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { Layanan } from './entities/layanan.entity';
 import { LayananService } from './layanan.service';
 
-@Controller('layanans')
+@Controller('layanan')
 export class LayananController {
   constructor(private readonly layananService: LayananService) {}
 
   @Get()
-  async getAll(): Promise<Layanan[]> {
-    return this.layananService.getAll();
+  async getAll() {
+    return this.layananService.getAllLayanans();
   }
 
   @Post()

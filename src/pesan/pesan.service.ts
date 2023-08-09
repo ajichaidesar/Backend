@@ -1,21 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Pesans } from './entities/pesan.entity';
+import { Pesan } from './entities/pesan.entity';
+import { UpdatePesanDto } from './pesan.dto';
 
 @Injectable()
 export class PesanService {
   constructor(
-    @InjectRepository(Pesans)
-    private pesanRepository: Repository<Pesans>,
+    @InjectRepository(Pesan)
+    private readonly pesanRepository: Repository<Pesan>,
   ) {}
 
-  async getAllPesan(): Promise<Pesans[]> {
+  async getAllPesans(): Promise<Pesan[]> {
     return this.pesanRepository.find();
   }
 
-  async createPesan(pesanData: Pesans): Promise<Pesans> {
-    const pesan = this.pesanRepository.create(pesanData);
+  async createPesan(data: Partial<Pesan>): Promise<Pesan> {
+    const pesan = this.pesanRepository.create(data);
     return this.pesanRepository.save(pesan);
   }
 }

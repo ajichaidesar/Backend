@@ -1,20 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Registrasis } from './entities/registrasi.entity';
-import { RegistrasiRepository } from './registrasi.repository';
+import { Repository } from 'typeorm';
+import { Registrasi } from './entities/registrasi.entity';
 
 @Injectable()
 export class RegistrasiService {
   constructor(
-    @InjectRepository(Registrasis)
-    private registrasiRepository: RegistrasiRepository,
+    @InjectRepository(Registrasi)
+    private readonly registrasiRepository: Repository<Registrasi>,
   ) {}
 
-  async createRegistrasi(data: Partial<Registrasis>): Promise<Registrasis> {
-    return this.registrasiRepository.save(data);
+  async getAllRegistrasi(): Promise<Registrasi[]> {
+    return this.registrasiRepository.find();
   }
 
-  async findAllRegistrasi(): Promise<Registrasis[]> {
-    return this.registrasiRepository.find();
+  async createRegistrasi(data: Partial<Registrasi>): Promise<Registrasi> {
+    const registrasi = this.registrasiRepository.create(data);
+    return this.registrasiRepository.save(registrasi);
   }
 }

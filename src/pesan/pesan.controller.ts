@@ -1,18 +1,20 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { Pesans } from './entities/pesan.entity';
 import { PesanService } from './pesan.service';
+import { Pesan } from './entities/pesan.entity';
+import { CreatePesanDto, UpdatePesanDto } from './pesan.dto';
 
 @Controller('pesan')
 export class PesanController {
   constructor(private readonly pesanService: PesanService) {}
 
   @Get()
-  async getAllPesan(): Promise<Pesans[]> {
-    return this.pesanService.getAllPesan();
+  async getAllQuestions(): Promise<Pesan[]> {
+    return this.pesanService.getAllPesans();
   }
 
   @Post()
-  async createPesan(@Body() pesanData: Pesans): Promise<Pesans> {
-    return this.pesanService.createPesan(pesanData);
+  async createPesan(@Body() data: Partial<Pesan>): Promise<Pesan> {
+    return this.pesanService.createPesan(data);
   }
+
 }

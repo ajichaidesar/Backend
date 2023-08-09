@@ -1,15 +1,18 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Body, Post } from '@nestjs/common';
 import { QuestionService } from './question.service';
-import { Questions } from './entities/question.entity';
+import { Question } from './entities/question.entity';
 
 @Controller('question')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
   @Get()
-  async findAll(): Promise<Questions[]> {
-    return this.questionService.findAll();
+  async getAllQuestions(): Promise<Question[]> {
+    return this.questionService.getAllQuestions();
   }
 
-  
+  @Post()
+  async createQuestion(@Body() data: Partial<Question>): Promise<Question> {
+    return this.questionService.createQuestion(data);
+  }
 }
