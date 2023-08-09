@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { InfoService } from './info.service';
 
-@Controller('infos')
+@Controller('info')
 export class InfoController {
   constructor(private readonly infoService: InfoService) {}
 

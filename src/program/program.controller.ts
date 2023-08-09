@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, NotFoundException } from '@nestjs/c
 import { ProgramsService } from './program.service';
 import { Program } from './entities/program.entity';
 
-@Controller('programs')
+@Controller('program')
 export class ProgramsController {
   constructor(private readonly programsService: ProgramsService) {}
 
