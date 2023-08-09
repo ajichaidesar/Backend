@@ -1,25 +1,25 @@
 import { Controller, Get, Post, Body, Param, NotFoundException } from '@nestjs/common';
-import { ProgramsService } from './program.service';
+import { ProgramService } from './program.service';
 import { Program } from './entities/program.entity';
 
 @Controller('program')
-export class ProgramsController {
-  constructor(private readonly programsService: ProgramsService) {}
+export class ProgramController {
+  constructor(private readonly programService: ProgramService) {}
 
   @Get()
-  async getAllPrograms(): Promise<Program[]> {
-    return this.programsService.getAllPrograms();
+  async getAllProgram(): Promise<Program[]> {
+    return this.programService.getAllProgram();
   }
 
   @Post()
   async createProgram(@Body() data: Partial<Program>): Promise<Program> {
-    return this.programsService.createProgram(data);
+    return this.programService.createProgram(data);
   }
 
   @Get(':id')
   async getProgramById(@Param('id') id: number): Promise<Program> {
     try {
-      return this.programsService.getProgramById(id);
+      return this.programService.getProgramById(id);
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw new NotFoundException('Program not found');

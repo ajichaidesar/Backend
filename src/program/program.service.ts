@@ -4,23 +4,23 @@ import { Repository } from 'typeorm';
 import { Program } from './entities/program.entity';
 
 @Injectable()
-export class ProgramsService {
+export class ProgramService {
   constructor(
     @InjectRepository(Program)
-    private programsRepository: Repository<Program>,
+    private programRepository: Repository<Program>,
   ) {}
 
-  async getAllPrograms(): Promise<Program[]> {
-    return this.programsRepository.find();
+  async getAllProgram(): Promise<Program[]> {
+    return this.programRepository.find();
   }
 
   async createProgram(data: Partial<Program>): Promise<Program> {
-    const program = this.programsRepository.create(data);
-    return this.programsRepository.save(program);
+    const program = this.programRepository.create(data);
+    return this.programRepository.save(program);
   }
 
   async getProgramById(id: number): Promise<Program> {
-    const program = await this.programsRepository.findOne({ where: { id } });
+    const program = await this.programRepository.findOne({ where: { id } });
 
     if (!program) {
       throw new NotFoundException('Program not found');
