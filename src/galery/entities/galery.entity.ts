@@ -2,6 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ name: 'galeries' }) // Mengatur nama tabel menjadi 'galeries'
 export class Galery {
+  static map(arg0: (galery: any) => any) {
+    throw new Error('Method not implemented.');
+  }
   @PrimaryGeneratedColumn()
   id: number;
 

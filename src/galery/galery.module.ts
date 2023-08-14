@@ -5,7 +5,7 @@ import { GaleryService } from './galery.service';
 import { GaleryController } from './galery.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Galery])],
+  imports: [TypeOrmModule.forFeature([Galery])], 
   providers: [GaleryService],
   controllers: [GaleryController],
 })

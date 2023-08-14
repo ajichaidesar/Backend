@@ -1,16 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity({ name: 'artikels' }) // Mengatur nama tabel menjadi 'artikels'
+@Entity('artikels')
 export class Artikel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'judul', type: 'varchar', length: 255 }) // Menggunakan tipe 'varchar' dengan panjang maksimum 255
+  @Column({ type: 'varchar', length: 255, nullable: true })
   judul: string;
 
-  @Column({ name: 'deskripsi', type: 'text' }) 
+  @Column({ type: 'longtext', nullable: true })
   deskripsi: string;
 
-  @Column({ name: 'image', type: 'text', nullable: true }) 
-  image: string; 
+  @CreateDateColumn({ type: 'datetime', precision: 6, default: () => 'CURRENT_TIMESTAMP(6)' })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: 'datetime', precision: 6, default: () => 'CURRENT_TIMESTAMP(6)' })
+  updated_at: Date;
+
+  @Column({ type: 'datetime', precision: 6, nullable: true })
+  published_at: Date;
+
+  @Column({ type: 'int', unsigned: true, nullable: true })
+  created_by_id: number;
+
+  @Column({ type: 'int', unsigned: true, nullable: true })
+  updated_by_id: number;
 }

@@ -1,26 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
-import { CardH2 } from './entities/card_h2.entity';
+import { CardH2} from './entities/card_h2.entity';
+import { Repository } from 'typeorm';
+import axios, { AxiosRequestConfig } from 'axios';
+
 
 @Injectable()
 export class CardH2Service {
-  constructor(
-    @InjectRepository(CardH2)
-    private readonly cardH2Repository: Repository<CardH2>,
-  ) {}
+  constructor(@InjectRepository(CardH2) private readonly cardH2Repository: Repository<CardH2>) {} 
 
-  async findAll(): Promise<CardH2[]> {
-    return this.cardH2Repository.find();
+  async find(): Promise<CardH2[]>{
+    try {
+      return await this.cardH2Repository.find()
+    } catch (error) {
+      throw new NotFoundException('Not Found')
+    }
   }
 
-  async findByCustomField(customField: any): Promise<CardH2[]> {
-    const queryBuilder = getRepository(CardH2).createQueryBuilder('card');
-
-    if (customField) {
-      queryBuilder.where('card.customField = :customField', { customField });
+  async findImg(): Promise<any[]> {
+    try {
+      const TokenApi: AxiosRequestConfig = {
+        headers: {
+          Authorization: `Bearer ${process.env.API_TOKEN}`
+        }
+      }
+      const response = await axios.get(`${process.env.API_URL_STRAPI}/card-h2?populate=*`, TokenApi);
+      const data = response.data.data.map((item: any) => {
+        const imgCardH2Url = item.attributes.banner_about.data.attributes.url;
+        return {
+          id: item.id,
+          url: imgCardH2Url,
+        };
+      });
+      return data;
+    } catch (error) {
+      throw new NotFoundException('Failed to fetch images');
     }
+  }
 
-    return queryBuilder.getMany();
+  async findWithImg(): Promise<CardH2[]> {
+    try {
+      const cardH2 = await this.find(); 
+      const images = await this.findImg();
+    
+      const mergedData = cardH2.map((item) => {
+        const image = images.find((img) => img.id === item.id);
+        return {
+          ...item,
+          image: image ? `${process.env.API_URL_STRAPI_2}${image.url}` : ''
+        }
+      });
+      return mergedData; 
+    } catch (error) {
+      throw new NotFoundException('Not found');
+    }
   }
 }
